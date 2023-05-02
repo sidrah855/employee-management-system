@@ -3,6 +3,7 @@ package com.ems.employeemanagementsystem.repository;
 import com.ems.employeemanagementsystem.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
@@ -22,10 +23,10 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     2. Using manually defined query
     jpa will bind the @query with method and then return the results
     JPQL query works according to classes or attribute defined in project rather than table and attribute of database
-     e is alies
+     e is alies @PARAM will tell that which value you have to use in query in place of name
      */
-    @Query("Select e from Employee e order by fullName")
-    List<Employee> sortedEmployee();
+    @Query("Select e from Employee e where e.fullName LIKE %:name% order by fullName ")
+    List<Employee> sortedEmployee(@Param("name") String employeeName);
 
     /*
     native query we can perform native queries as well

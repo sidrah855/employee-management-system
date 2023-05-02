@@ -13,4 +13,6 @@ public interface EmployeeService {
 
     ApiResponse getEmployeeByName(String employeeName);
     ApiResponse saveEmployee(EmployeeDTO employeeDTO);
+
+    ApiResponse getSortedEmployees(String employeeName);
 }

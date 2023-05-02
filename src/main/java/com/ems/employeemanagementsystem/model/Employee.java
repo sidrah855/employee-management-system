@@ -20,11 +20,11 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long employeeId;
-    @Column(name="full_name",nullable = false,length = 30)
-    String fullName;
+    private Long employeeId;
+    @Column(name="fullname",length = 30)
+    private String fullName;
     @Column
-    String designation;
+    private String designation;
     @Column
-    String department;
+    private String department;
 }

@@ -25,23 +25,31 @@ public class EmployeeController {
 
     @GetMapping("/get-all-employee") // /get-all-employee it called uri or endpoint
     public ResponseEntity<?> getAllEmployee() {
+        // in this we are using default repository method
         return ResponseEntity.ok(employeeService.getAllEmployee()); //response entity is a class while httpstatus is a enum
     }
 
     @GetMapping("/get-employee-by-id/{employeeId}")
     public ResponseEntity<?> getEmployeeById(@PathVariable("employeeId") Long employeeId)
     {
+        //if your primary key is of simple type that is integer long then you dont have to define findbyid in repository we can use default one's
         return ResponseEntity.ok(employeeService.getEmployeeById(employeeId));
     }
     @GetMapping("/get-employee-by-name/{employeeName}")
     public ResponseEntity<?> getEmployeeByName(@PathVariable("employeeName") String employeeName)
-    {
+    { //in this we are using naming convention method of jpa
         return ResponseEntity.ok(employeeService.getEmployeeByName(employeeName));
     }
 
     @PostMapping("/save-employee")   //post mapping handel http post requests
     public ResponseEntity<?> saveEmployee(@RequestBody EmployeeDTO employeeDTO) //@RequestMapping maps the body of the web request to method parameter
-    {
+    {   // simple save method ofjpa and model mapper
         return ResponseEntity.ok(employeeService.saveEmployee(employeeDTO));
+    }
+    @GetMapping("/get-sorted-employee-by-name/{employeeName}")
+    public ResponseEntity<?> getSortedEmployees(@PathVariable("employeeName") String employeeName)
+    {
+        //in this we are using @query annotation and custom jpql
+        return ResponseEntity.ok(employeeService.getSortedEmployees(employeeName));
     }
 }

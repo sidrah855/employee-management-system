@@ -70,6 +70,12 @@
 <!--			<artifactId>mssql-jdbc</artifactId>-->
 <!--			<scope>12.2.0.jre8</scope>-->
 <!--		</dependency>-->
+<!--                MODEL mapper dependency to map dto's to entity-->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.1.0</version>
+		</dependency>
 
 	</dependencies>
 
