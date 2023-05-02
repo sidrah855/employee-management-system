@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.ems.employeemanagementsystem.dto.ApiResponse.createResponse;
+
 @Service //this annotation has to be here in impl class else error
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
@@ -65,11 +67,12 @@ public class EmployeeServiceImpl implements EmployeeService {
        employee=employeeRepository.save(employee);
        if(employee==null)
        {
-           ApiResponse.builder().status(HttpStatus.NOT_ACCEPTABLE.value()).message("Could not store data in db...!").data(employee).build();
+           return createResponse(HttpStatus.NOT_FOUND.value(),"Could not save data.....!",employee );
+           //ApiResponse.builder().status(HttpStatus.NOT_ACCEPTABLE.value()).message("Could not store data in db...!").data(employee).build();
 
        }
-
-     return ApiResponse.builder().status(HttpStatus.OK.value()).message("Data has been saved successfully....!").data(employee).build();
+        return createResponse(HttpStatus.OK.value(),"Data saved Successfully.....!",employee );
+//     return ApiResponse.builder().status(HttpStatus.OK.value()).message("Data has been saved successfully....!").data(employee).build();
     }
 
     @Override
@@ -77,10 +80,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         List<Employee> employees=employeeRepository.sortedEmployee(employeeName);
 
-        if(employees.isEmpty())
-        return ApiResponse.builder().status(HttpStatus.NOT_FOUND.value()).message("Ops ...").data(employees).build();
-
-        return ApiResponse.builder().status(HttpStatus.OK.value()).message("SORTED LIST OF EMPLOYEES...").data(employees).build();
+        return employees.isEmpty()?
+                ApiResponse.builder().status(HttpStatus.NOT_FOUND.value()).message("Ops ...").data(employees).build():
+                ApiResponse.builder().status(HttpStatus.OK.value()).message("SORTED LIST OF EMPLOYEES...").data(employees).build();
     }
 }
 

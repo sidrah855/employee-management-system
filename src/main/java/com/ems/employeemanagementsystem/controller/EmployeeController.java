@@ -43,13 +43,13 @@ public class EmployeeController {
 
     @PostMapping("/save-employee")   //post mapping handel http post requests
     public ResponseEntity<?> saveEmployee(@RequestBody EmployeeDTO employeeDTO) //@RequestMapping maps the body of the web request to method parameter
-    {   // simple save method ofjpa and model mapper
+    {   // simple save method of jpa and model mapper and utility method of createResponse
         return ResponseEntity.ok(employeeService.saveEmployee(employeeDTO));
     }
     @GetMapping("/get-sorted-employee-by-name/{employeeName}")
     public ResponseEntity<?> getSortedEmployees(@PathVariable("employeeName") String employeeName)
     {
-        //in this we are using @query annotation and custom jpql
+        //in this we are using @query annotation and custom jpql and ternary operator
         return ResponseEntity.ok(employeeService.getSortedEmployees(employeeName));
     }
 }
