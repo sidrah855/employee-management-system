@@ -1,6 +1,7 @@
 package com.ems.employeemanagementsystem.service;
 
 import com.ems.employeemanagementsystem.dto.ApiResponse;
+import com.ems.employeemanagementsystem.dto.EmployeeDTO;
 import com.ems.employeemanagementsystem.model.Employee;
 import com.ems.employeemanagementsystem.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,18 @@ public class EmployeeServiceImpl implements EmployeeService {
      //  List<Employee> employees=employeeRepository.findByfullName(employeeName);
         List<Employee> employees=employeeRepository.sortedEmployee();
         System.out.println("    ");
+        if(employees.isEmpty())
+        {
+            return ApiResponse.builder().status(HttpStatus.NOT_FOUND.value()).message("NO record found ............!").data(null).build();
+        }
         return ApiResponse.builder().status(HttpStatus.OK.value()).message("Record Found.......!").data(employees).build();
 
+    }
+
+    @Override
+    public ApiResponse saveEmployee(EmployeeDTO employeeDTO) {
+
+     return null;
     }
 }
 
