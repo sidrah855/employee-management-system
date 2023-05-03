@@ -52,4 +52,15 @@ public class EmployeeController {
         //in this we are using @query annotation and custom jpql and ternary operator
         return ResponseEntity.ok(employeeService.getSortedEmployees(employeeName));
     }
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<?> deleteAllEmployees()
+    {
+        //jpa doesnot provide any delete all method we have to use @query or other means
+
+        return  ResponseEntity.ok(employeeService.deleteAllEmployees());
+    }
+
+     // put and patch both use for update only difference is that put is used when we want to modify whole data in database we have to send whole object put and post used interchangeably
+    //  patch when we want to update some part of data
+
 }

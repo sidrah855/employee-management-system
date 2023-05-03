@@ -2,6 +2,7 @@ package com.ems.employeemanagementsystem.repository;
 
 import com.ems.employeemanagementsystem.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -28,6 +29,10 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     @Query("Select e from Employee e where e.fullName LIKE %:name% order by fullName ")
     List<Employee> sortedEmployee(@Param("name") String employeeName);
 
+    @Modifying
+    @Query("delete from Employee")
+    //Modifying queries can only use void or int/Integer as return type!
+    Integer deleteAllEmployees();
     /*
     native query we can perform native queries as well
     @Query(

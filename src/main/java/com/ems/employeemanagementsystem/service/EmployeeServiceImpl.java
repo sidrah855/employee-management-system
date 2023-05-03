@@ -84,5 +84,12 @@ public class EmployeeServiceImpl implements EmployeeService {
                 ApiResponse.builder().status(HttpStatus.NOT_FOUND.value()).message("Ops ...").data(employees).build():
                 ApiResponse.builder().status(HttpStatus.OK.value()).message("SORTED LIST OF EMPLOYEES...").data(employees).build();
     }
+
+    @Override
+    public ApiResponse deleteAllEmployees() {
+       return employeeRepository.deleteAllEmployees()>0?
+         createResponse(HttpStatus.OK.value(),"All record has been deleted....!",null):
+         createResponse(HttpStatus.FORBIDDEN.value(),"OPPS....!",null);
+    }
 }
 

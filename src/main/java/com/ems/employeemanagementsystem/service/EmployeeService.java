@@ -15,4 +15,6 @@ public interface EmployeeService {
     ApiResponse saveEmployee(EmployeeDTO employeeDTO);
 
     ApiResponse getSortedEmployees(String employeeName);
+
+    ApiResponse deleteAllEmployees();
 }
