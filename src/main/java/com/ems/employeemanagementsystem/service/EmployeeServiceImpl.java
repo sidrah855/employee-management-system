@@ -7,6 +7,7 @@ import com.ems.employeemanagementsystem.repository.EmployeeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,6 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService {
        employee=employeeRepository.save(employee);
        if(employee==null)
        {
+           //to make it more short i introduced a create response in api_response class with static import
            return createResponse(HttpStatus.NOT_FOUND.value(),"Could not save data.....!",employee );
            //ApiResponse.builder().status(HttpStatus.NOT_ACCEPTABLE.value()).message("Could not store data in db...!").data(employee).build();
 
@@ -86,10 +88,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ApiResponse deleteAllEmployees() {
-       return employeeRepository.deleteAllEmployees()>0?
-         createResponse(HttpStatus.OK.value(),"All record has been deleted....!",null):
-         createResponse(HttpStatus.FORBIDDEN.value(),"OPPS....!",null);
+    public ApiResponse deleteEmployeeById(Long employeeId) {
+        Optional<Employee> employee=employeeRepository.findById(employeeId);
+        if(!employee.isPresent())
+        {
+            return createResponse(HttpStatus.NOT_FOUND.value(), "No recorde found....!",null);
+        }
+        employeeRepository.deleteById(employeeId);
+        return createResponse(HttpStatus.OK.value(), "Data has been removed successfully...!", employeeId);
+
+
     }
 }
 
