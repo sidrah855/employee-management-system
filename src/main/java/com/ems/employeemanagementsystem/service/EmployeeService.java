@@ -13,4 +13,8 @@ public interface EmployeeService {
     ApiResponse saveEmployee(EmployeeDTO employeeDTO);
     ApiResponse getSortedEmployees(String employeeName);
     ApiResponse deleteEmployeeById(Long employeeId);
+
+    ApiResponse deleteByDesignation(String designation);
+
+    ApiResponse deleteEmployee(String department, String designation);
 }

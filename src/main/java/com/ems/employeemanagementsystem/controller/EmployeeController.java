@@ -59,6 +59,17 @@ public class EmployeeController {
         return  ResponseEntity.ok(employeeService.deleteEmployeeById(employeeId));
 
     }
+    @DeleteMapping("delete-by-designation/{designation}")
+    public ResponseEntity<?> deleteByDesignation(@PathVariable ("designation") String designation)
+    {
+        return ResponseEntity.ok(employeeService.deleteByDesignation(designation));
+    }
+
+    @DeleteMapping("delete-employee/{department}/{designation}")
+    public ResponseEntity<?> deleteEmployee(@PathVariable("department") String department,@PathVariable("designation") String designation)
+    {
+        return ResponseEntity.ok(employeeService.deleteEmployee(department,designation));
+    }
 
      // put and patch both use for update only difference is that put is used when we want to modify whole data in database we have to send whole object put and post used interchangeably
     //  patch when we want to update some part of data

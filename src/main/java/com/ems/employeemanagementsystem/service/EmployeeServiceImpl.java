@@ -10,12 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 import static com.ems.employeemanagementsystem.dto.ApiResponse.createResponse;
 
 @Service //this annotation has to be here in impl class else error
+@Transactional //when ever we need to delete or modify this annotation is musttttttt you should use @Transactional when you want to execute a series of database operations in a single transaction and rollback the transaction if any of the operations fail.
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
@@ -97,6 +99,28 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.deleteById(employeeId);
         return createResponse(HttpStatus.OK.value(), "Data has been removed successfully...!", employeeId);
 
+
+    }
+
+    @Override
+    public ApiResponse deleteByDesignation(String designation) {
+        Integer employees =employeeRepository.deleteInBatchByDesignation(designation);
+        if(employees.intValue()==0)
+        {
+            return createResponse(HttpStatus.BAD_GATEWAY.value(), "nothing deleted",employees);
+        }
+        return createResponse(HttpStatus.OK.value(), "Data has been removed successfully...!", employees);
+
+    }
+
+    @Override
+    public ApiResponse deleteEmployee(String department, String designation) {
+        Integer result=employeeRepository.deleteEmployee(department,designation);
+        if(result.intValue()==0)
+        {
+            return createResponse(HttpStatus.BAD_GATEWAY.value(), "nothing deleted",result);
+        }
+        return createResponse(HttpStatus.OK.value(), "Data has been removed successfully...!", result);
 
     }
 }
