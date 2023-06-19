@@ -15,7 +15,7 @@
 	<name>employee-management-system</name>
 	<description>employee management system Rest api</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 <!--		to remover boiler plate code getter setter -->
