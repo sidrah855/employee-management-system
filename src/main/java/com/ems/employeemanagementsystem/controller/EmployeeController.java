@@ -75,5 +75,8 @@ public class EmployeeController {
     //  patch when we want to update some part of data
 
 
-
+     @PutMapping("/update-employee-by-id/{id}")
+     public ResponseEntity<?> updateById(@PathVariable("id") Long id ){
+        return ResponseEntity.ok("to do");
+     }
 }
